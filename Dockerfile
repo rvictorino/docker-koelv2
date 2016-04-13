@@ -21,6 +21,7 @@ RUN apk update \
     php-mysql php-curl php-opcache php-ctype php-apcu \
     php-intl php-bcmath php-dom php-xmlreader php-xsl mysql-client \
     git build-base python \
+    curl \
     && apk add -u musl
 
 RUN rm -rf /var/cache/apk/*
@@ -45,19 +46,17 @@ RUN sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php/php.ini && \
     sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/DATA:\/bin\/bash/g' /etc/passwd && \
     sed -i 's/nginx:x:100:101:Linux User,,,:\/var\/www\/localhost\/htdocs:\/sbin\/nologin/nginx:x:100:101:Linux User,,,:\/DATA:\/bin\/bash/g' /etc/passwd-
 
+
 ADD files/nginx.conf /etc/nginx/
 ADD files/php-fpm.conf /etc/php/
 ADD files/run.sh /
 RUN chmod +x /run.sh && chown -R nginx:nginx /DATA
 
+
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer 
 
-
-RUN su nginx -c "git clone https://github.com/phanan/koel /DATA/htdocs &&\
-    cd /DATA/htdocs &&\
-    npm install &&\
-    composer config github-oauth.github.com  2084a22e9bdb38f94d081ab6f2d5fd339b5292e8 &&\
-    composer install"
+RUN git clone -b 2.0 --single-branch https://github.com/phanan/koel /DATA/htdocs
+RUN cd /DATA/htdocs && npm install && composer config github-oauth.github.com  f79b1d425cfbd1410c15e7182701f1a11b4e282d && composer install
 
 #clean up
 RUN apk del --purge git build-base python nodejs
@@ -66,6 +65,9 @@ RUN apk del --purge git build-base python nodejs
 COPY files/.env /DATA/htdocs/.env
 
 RUN chown nginx:nginx /DATA/htdocs/.env
+
+# generate JWT secret
+RUN cd /DATA/htdocs && php artisan koel:generate-jwt-secret
 
 #RUN su nginx -c "cd /DATA/htdocs && php artisan init"
 
