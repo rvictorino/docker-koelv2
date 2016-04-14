@@ -56,7 +56,7 @@ RUN chmod +x /run.sh && chown -R nginx:nginx /DATA
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer 
 
 RUN git clone -b 2.0 --single-branch https://github.com/phanan/koel /DATA/htdocs
-RUN cd /DATA/htdocs && npm install && composer config github-oauth.github.com  f79b1d425cfbd1410c15e7182701f1a11b4e282d && composer install
+RUN cd /DATA/htdocs && npm install && composer config && composer install
 
 #clean up
 RUN apk del --purge git build-base python nodejs
