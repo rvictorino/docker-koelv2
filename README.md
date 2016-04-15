@@ -29,7 +29,7 @@ All variables available, via -e switch of docker run as above. All these need to
 After this init the site via exec
 
 ```
-docker exec {container} su nginx -c "cd /DATA/htdocs && php artisan init"
+docker exec -i {container}  bash -c "cd /DATA/htdocs && php artisan koel:init"
 ```
 
 If you want to link a database container you can do it with this image.. just specify the link as the DB_HOST, i.e. if the link is called mysql then say -e DB_HOST=mysql.
