@@ -1,8 +1,17 @@
-# docker-koel - Alpine Linux, PHP-FPM, Nginx, NodeJS
+# docker-koel - Alpine Linux, PHP-FPM, Nginx, NodeJS and Koel v2.2.0
+This Dockerfile provides a koel image based on etopian/docker-koel with an updated version (2.2.0) of koel.
+
+Original container: https://github.com/etopian/docker-koel
 
 Issue: https://github.com/phanan/koel/issues/10
 
 Documentation: https://qoba.lt/koel_with_docker.html
+
+Replace the etopian/docker-koel image by rvictorino/koelv2 to use this one instead.
+
+Following is etopian/docker-koel README.md content
+
+
 
 The .env file is dynamic using Docker variables.
 
