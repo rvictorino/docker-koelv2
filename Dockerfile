@@ -9,7 +9,7 @@ WORKDIR /DATA/htdocs
 
 RUN su nginx -c "git init && git remote add koel https://github.com/phanan/koel.git && git fetch --all && git checkout v2.2.0"
 
-RUN npm -g install npm@next && npm cache clean -g
+RUN npm cache clean && npm install npm@next 
 
 RUN su nginx -c "npm cache clean && npm rebuild && npm install"
 
