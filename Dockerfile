@@ -11,6 +11,8 @@ RUN su nginx -c "git init && git remote add koel https://github.com/phanan/koel.
 
 RUN npm cache clean && npm install npm@next 
 
+RUN chown -R nginx:nginx /DATA/htdocs/
+
 RUN su nginx -c "npm cache clean && npm rebuild && npm install"
 
 RUN su nginx -c "composer clearcache && rm -rf vendor && rm -rf bootstrap/cache/*"
