@@ -3,9 +3,9 @@ This Dockerfile provides a koel image based on etopian/docker-koel with an updat
 
 Original container: https://github.com/etopian/docker-koel
 
-Issue: https://github.com/phanan/koel/issues/10
+Issue (koel): https://github.com/phanan/koel/issues/10
 
-Documentation: https://qoba.lt/koel_with_docker.html
+Documentation (made for etopian/docker-koel): https://qoba.lt/koel_with_docker.html
 
 Replace the etopian/docker-koel image by rvictorino/koelv2 to use this one instead.
 
