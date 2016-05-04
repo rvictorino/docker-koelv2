@@ -7,6 +7,8 @@ RUN apk add --update git nodejs python build-base
 
 WORKDIR /DATA/htdocs
 
+RUN su nginx -c "rm -rf /DATA/htdocs/*"
+
 RUN su nginx -c "git init && git remote add koel https://github.com/phanan/koel.git && git fetch --all && git checkout v2.2.0"
 
 RUN npm cache clean && npm install npm@next 
